@@ -94,7 +94,6 @@ def decision_tree():
                            float(request.form['list2']),
                            float(request.form['list3']),
                            float(request.form['list4'])]])
-
         pred = loaded_tree_model.predict(X_new)
         return render_template('lab4.html', prediction=pred)
 
