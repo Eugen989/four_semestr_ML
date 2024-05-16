@@ -87,15 +87,15 @@ def knn():
 @app.route("/decision_tree", methods=['POST', 'GET'])
 def decision_tree():
     if request.method == 'GET':
-        return render_template('decision_tree.html')
+        return render_template('lab4.html')
     if request.method == 'POST':
         # Assuming the form input names are 'feature1', 'feature2', 'feature3', 'feature4'
-        X_new = np.array([[float(request.form['feature1']),
-                           float(request.form['feature2']),
-                           float(request.form['feature3']),
-                           float(request.form['feature4'])]])
+        X_new = np.array([[float(request.form['list1']),
+                           float(request.form['list2']),
+                           float(request.form['list3']),
+                           float(request.form['list4'])]])
         pred = loaded_tree_model.predict(X_new)
-        return render_template('decision_tree.html', prediction=pred)
+        return render_template('lab4.html', prediction=pred)
 
 if __name__ == "__main__":
     app.run(debug=True)
