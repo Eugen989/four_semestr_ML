@@ -19,6 +19,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
 
+from flask import Flask, request, jsonify
+import numpy as np
+import joblib
+
 
 app = Flask(__name__)
 
@@ -166,15 +170,21 @@ def decision_tree():
 
         return render_template('lab4.html', prediction=pred, metric=metric)
 
-# @app.route('/api', methods=['get'])
-# def get_sort():
-#     X_new = np.array([[float(request.args.get('sepal_length')),
-#                        float(request.args.get('sepal_width')),
-#                        float(request.args.get('petal_length')),
-#                        float(request.args.get('petal_width'))]])
-#     pred = loaded_knn_model.predict(X_new)
-#
-#     return jsonify(sort=pred[0])
+@app.route('/api', methods=['get'])
+def get_sort():
+    height = float(request.args.get('height'))
+    mark = float(request.args.get('mark'))
+    end = float(request.args.get('end'))
+    salary = float(request.args.get('salary'))
+
+    print(f'Received params: height={height}, mark={mark}, end={end}, salary={salary}')
+
+    X_new = np.array([[height, mark, end, salary]])
+    pred = loaded_knn_model.predict(X_new)
+
+    print(f'Prediction: {pred[0]}')
+
+    return jsonify(sort=float(pred[0]))
 
 
 if __name__ == "__main__":
